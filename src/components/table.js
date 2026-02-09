@@ -22,7 +22,7 @@ export function initTable(settings, onAction) {
         root.container.append(root[subName].container);
     });
     // @todo: #1.3 —  обработать события и вызвать onAction()
-    root.container.addEventListener('change', onAction());
+    root.container.addEventListener('change', onAction);
     root.container.addEventListener('reset', ()=>{
         setTimeout(onAction);
     });
@@ -33,16 +33,15 @@ export function initTable(settings, onAction) {
     const render = (data) => {
         // @todo: #1.1 — преобразовать данные в массив строк на основе шаблона rowTemplate gaz
         const nextRows = [];
-        const rowTemplate = document.getElementById('row');
-        const row = rowTemplate.content;
 
-        nextRows = data.array.forEach(item => {
-            const row = cloneTemplate(rowTemplate);
+        data.forEach(item => {
+            const row = cloneTemplate('row');
             Object.keys(item).forEach(key => { 
                 if(key in row.elements){
                     row.elements[key].textContent = item[key];
                 }
             })
+            nextRows.push(row.container);
         });
         root.elements.rows.replaceChildren(...nextRows);
     }
