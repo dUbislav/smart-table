@@ -13,7 +13,7 @@ import {initSorting} from "./components/sorting.js";
 import {initFiltering} from "./components/filtering.js";
 
 // Исходные данные используемые в render()
-const {data, ...indexes} = initData(sourceData);
+const api = initData(sourceData);
 
 /**
  * Сбор и обработка полей из таблицы
@@ -34,14 +34,15 @@ function collectState() {
  * Перерисовка состояния таблицы при любых изменениях
  * @param {HTMLButtonElement?} action
  */
-function render(action) {
+async function render(action) {
     let state = collectState(); // состояние полей из таблицы
-    let result = [...data]; // копируем для последующего изменения
+    let query = {} // копируем для последующего изменения
     // @todo: использование
     result = applySorting(result, state, action);
-    result = applyPagination(result, state, action); 
+    result = applyPagination(result, state, action);
+    const { total, items } = await api.getRecords(query); 
 
-    sampleTable.render(result)
+    sampleTable.render(items)
 }
 
 const sampleTable = initTable({
@@ -76,4 +77,10 @@ const applyFiltering = initFiltering(sampleTable.filter.elements, {    // пер
 const appRoot = document.querySelector('#app');
 appRoot.appendChild(sampleTable.container);
 
-render();
+async function init() {
+    const indexes = await api.getIndexes();
+};
+
+
+
+init().then(render);
