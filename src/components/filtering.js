@@ -11,7 +11,7 @@ export function initFiltering(elements) {
     }
     const applyFiltering = (query, state, action) => {
         // код с обработкой очистки поля
-         if (action.name === 'clear'){
+         if (action?.name === 'clear'){
             const buttonElement = action.element;
             const parentElement = buttonElement.parentElement;
             const fieldName = parentElement.getAttribute('data-field');

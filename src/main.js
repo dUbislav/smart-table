@@ -11,6 +11,7 @@ import {initTable} from "./components/table.js";
 import {initPagination} from "./components/pagination.js";
 import {initSorting} from "./components/sorting.js";
 import {initFiltering} from "./components/filtering.js";
+import {initSearching} from "./components/searching.js";
 
 // Исходные данные используемые в render()
 const api = initData(sourceData);
@@ -74,6 +75,8 @@ const applySorting = initSorting([        // Нам нужно передать 
 ]);
 
 const {applyFiltering, updateIndexes} = initFiltering(sampleTable.filter.elements);
+
+const applySearching = initSearching('search');
 
 const appRoot = document.querySelector('#app');
 appRoot.appendChild(sampleTable.container);
