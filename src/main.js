@@ -1,17 +1,17 @@
 import './fonts/ys-display/fonts.css'
 import './style.css'
 
-import {data as sourceData} from "./data/dataset_1.js";
+import { data as sourceData } from "./data/dataset_1.js";
 
-import {initData} from "./data.js";
-import {processFormData} from "./lib/utils.js";
+import { initData } from "./data.js";
+import { processFormData } from "./lib/utils.js";
 
-import {initTable} from "./components/table.js";
+import { initTable } from "./components/table.js";
 // @todo: подключение
-import {initPagination} from "./components/pagination.js";
-import {initSorting} from "./components/sorting.js";
-import {initFiltering} from "./components/filtering.js";
-import {initSearching} from "./components/searching.js";
+import { initPagination } from "./components/pagination.js";
+import { initSorting } from "./components/sorting.js";
+import { initFiltering } from "./components/filtering.js";
+import { initSearching } from "./components/searching.js";
 
 // Исходные данные используемые в render()
 const api = initData(sourceData);
@@ -57,7 +57,7 @@ const sampleTable = initTable({
 }, render);
 
 // @todo: инициализация
-const {applyPagination, updatePagination} = initPagination(
+const { applyPagination, updatePagination } = initPagination(
     sampleTable.pagination.elements,             // передаём сюда элементы пагинации, найденные в шаблоне
     (el, page, isCurrent) => {                    // и колбэк, чтобы заполнять кнопки страниц данными
         const input = el.querySelector('input');
@@ -74,7 +74,7 @@ const applySorting = initSorting([        // Нам нужно передать 
     sampleTable.header.elements.sortByTotal
 ]);
 
-const {applyFiltering, updateIndexes} = initFiltering(sampleTable.filter.elements);
+const { applyFiltering, updateIndexes } = initFiltering(sampleTable.filter.elements);
 
 const applySearching = initSearching('search');
 
